@@ -22,20 +22,24 @@ schema = {
             "type": "array",
             "items": {
                 "type": "object",
+                "required": [
+                    "id",
+                    "object",
+                ],
                 "properties": {
                     "id": {"type": "string"},
                     "object": {
                         "type": "string"
                     },  # TODO: format as, e.g., 'recipe:recipe'
                 },
-                "required": [
-                    "id",
-                    "object",
-                ],
             },
         },
         "provenance": {
             "type": "object",
+            "required": [
+                "providers",
+                "license",
+            ],
             "properties": {
                 "providers": {
                     "type": "array",
