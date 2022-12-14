@@ -30,8 +30,7 @@ jobs:
 
     - name: Test with pytest
       run: |
-        # Test everything except the flink tests
-        pytest -vvv -s --cov=meta_yaml_schema --ignore=tests/
+        pytest -vvv -s --cov=meta_yaml_schema
 
     - name: Upload Coverage to Codecov
       uses: codecov/codecov-action@v2
