@@ -73,6 +73,11 @@ schema = {
             "type": "array",
             "items": {
                 "type": "object",
+                "required": [
+                    "name",
+                    "orcid",
+                    "github",
+                ],
                 "properties": {
                     "name": {"type": "string"},
                     "orcid": {"type": "string"},  # TODO: orcid ID format
