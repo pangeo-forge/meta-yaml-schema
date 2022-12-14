@@ -1,5 +1,15 @@
 schema = {
     "type": "object",
+    "required": [
+        "title",
+        "description",
+        "pangeo_forge_version",
+        "pangeo_notebook_version",
+        "recipes",
+        "provenance",
+        "maintainers",
+        "bakery",
+    ],
     "properties": {
         "title": {"type": "string"},
         "description": {"type": "string"},
