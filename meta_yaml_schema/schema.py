@@ -45,6 +45,12 @@ schema = {
                     "type": "array",
                     "items": {
                         "type": "object",
+                        "required": [
+                            "name",
+                            "description",
+                            "roles",
+                            "url",
+                        ],
                         "properties": {
                             "name": {"type": "string"},
                             "description": {"type": "string"},
