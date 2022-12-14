@@ -28,6 +28,10 @@ schema = {
                         "type": "string"
                     },  # TODO: format as, e.g., 'recipe:recipe'
                 },
+                "required": [
+                    "id",
+                    "object",
+                ],
             },
         },
         "provenance": {
