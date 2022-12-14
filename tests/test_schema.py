@@ -91,3 +91,17 @@ def test_missing_maintainers_subfield(valid_meta_yaml, subfield):
 
     with pytest.raises(ValidationError, match=f"'{subfield}' is a required property"):
         validate(invalid_meta_yaml, schema=schema)
+
+
+@pytest.mark.parametrize(
+    "subfield",
+    [
+        "id",
+    ],
+)
+def test_missing_bakery_subfield(valid_meta_yaml, subfield):
+    invalid_meta_yaml = copy.deepcopy(valid_meta_yaml)
+    del invalid_meta_yaml["bakery"][subfield]
+
+    with pytest.raises(ValidationError, match=f"'{subfield}' is a required property"):
+        validate(invalid_meta_yaml, schema=schema)

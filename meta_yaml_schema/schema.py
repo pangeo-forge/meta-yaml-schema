@@ -85,6 +85,12 @@ schema = {
                 },
             },
         },
-        "bakery": {"type": "object", "properties": {"id": {"type": "string"}}},
+        "bakery": {
+            "type": "object",
+            "required": [
+                "id",
+            ],
+            "properties": {"id": {"type": "string"}},
+        },
     },
 }
