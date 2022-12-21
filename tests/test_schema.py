@@ -19,7 +19,7 @@ def test_schema_valid_dict_object(valid_meta_yaml_dict_object):
     [
         "title",
         "description",
-        "pangeo_forge_version",
+        "pangeo_forge_recipes",
         "pangeo_notebook_version",
         "recipes",
         "provenance",
