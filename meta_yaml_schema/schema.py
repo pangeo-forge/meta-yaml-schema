@@ -1,96 +1,48 @@
-schema = {
-    "type": "object",
-    "required": [
-        "title",
-        "description",
-        "pangeo_forge_version",
-        "pangeo_notebook_version",
-        "recipes",
-        "provenance",
-        "maintainers",
-        "bakery",
-    ],
-    "properties": {
-        "title": {"type": "string"},
-        "description": {"type": "string"},
-        # TODO: semantic version format
-        "pangeo_forge_version": {"type": "string"},
-        # TODO: convert to image tag
-        "pangeo_notebook_version": {"type": "string"},
-        "recipes": {
-            # TODO: can also be dict_object, doing array first
-            "type": "array",
-            "items": {
-                "type": "object",
-                "required": [
-                    "id",
-                    "object",
-                ],
-                "properties": {
-                    "id": {"type": "string"},
-                    "object": {
-                        "type": "string"
-                    },  # TODO: format as, e.g., 'recipe:recipe'
-                },
-            },
-        },
-        "provenance": {
-            "type": "object",
-            "required": [
-                "providers",
-                "license",
-            ],
-            "properties": {
-                "providers": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "required": [
-                            "name",
-                            "description",
-                            "roles",
-                            "url",
-                        ],
-                        "properties": {
-                            "name": {"type": "string"},
-                            "description": {"type": "string"},
-                            "roles": {
-                                "type": "array",
-                                "items": {
-                                    "type": "string"
-                                },  # TODO: one of 'producer', 'licensor', etc.
-                            },
-                            "url": {"type": "string"},  # TODO: http url format
-                        },
-                    },
-                },
-                "license": {
-                    "type": "string"
-                },  # TODO: one of valid list, or custom object
-            },
-        },
-        "maintainers": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "required": [
-                    "name",
-                    "orcid",
-                    "github",
-                ],
-                "properties": {
-                    "name": {"type": "string"},
-                    "orcid": {"type": "string"},  # TODO: orcid ID format
-                    "github": {"type": "string"},
-                },
-            },
-        },
-        "bakery": {
-            "type": "object",
-            "required": [
-                "id",
-            ],
-            "properties": {"id": {"type": "string"}},
-        },
-    },
-}
+from typing import List, Union
+
+from pydantic import BaseModel, HttpUrl
+
+
+class RecipeObject(BaseModel):
+    id: str  # TODO: require to be unique within meta.yaml namespace
+    object: str  # TODO: require format '{module_name}:{recipe_instance_name}'
+
+
+class RecipeDictObject(BaseModel):
+    dict_object: str  # TODO: require format '{module_name}:{dict_instance_name}'
+
+
+class Provider(BaseModel):
+    name: str
+    description: str
+    roles: List[str]  # TODO: enum choices e.g. Roles.producer, Roles.licensor
+    url: HttpUrl
+
+
+class Provenance(BaseModel):
+    providers: List[Provider]
+    license: str  # TODO: enum choices e.g. Licenses.cc_by_40 = "CC-BY-4.0" etc.
+
+
+class Maintainer(BaseModel):
+    name: str
+    orcid: str  # TODO: format requirement
+    github: str  # TODO: allowable characters
+
+
+class Bakery(BaseModel):
+    id: str  # TODO: exists in database
+
+
+class MetaYaml(BaseModel):
+    title: str
+    description: str
+    pangeo_forge_version: str
+    pangeo_notebook_version: str
+    recipes: Union[List[RecipeObject], RecipeDictObject]
+    provenance: Provenance
+    maintainers: List[Maintainer]
+    bakery: Bakery
+
+
+schema = MetaYaml.schema()

@@ -10,6 +10,10 @@ def test_schema_valid(valid_meta_yaml):
     validate(valid_meta_yaml, schema=schema)
 
 
+def test_schema_valid_dict_object(valid_meta_yaml_dict_object):
+    validate(valid_meta_yaml_dict_object, schema=schema)
+
+
 @pytest.mark.parametrize(
     "field",
     [

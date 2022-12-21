@@ -5,8 +5,8 @@ import yaml
 
 
 @pytest.fixture
-def valid_meta_yaml():
-    valid_meta_yaml = dedent(
+def with_recipes_list() -> str:
+    return dedent(
         """\
     title: 'AWS NOAA WHOI SST'
     description: 'Analysis-ready datasets derived from AWS NOAA WHOI NetCDF'
@@ -32,4 +32,28 @@ def valid_meta_yaml():
       id: 'pangeo-ldeo-nsf-earthcube'
     """  # noqa: E501
     )
-    return yaml.safe_load(valid_meta_yaml)
+
+
+@pytest.fixture
+def valid_meta_yaml(with_recipes_list: str) -> dict:
+    return yaml.safe_load(with_recipes_list)
+
+
+@pytest.fixture
+def valid_meta_yaml_dict_object(with_recipes_list: str) -> dict:
+    with_dict_object = with_recipes_list.replace(
+        dedent(
+            """\
+        recipes:
+          - id: aws-noaa-sea-surface-temp-whoi
+            object: 'recipe:recipe'
+        """
+        ),
+        dedent(
+            """\
+        recipes:
+          dict_object: 'recipe:recipes'
+        """
+        ),
+    )
+    return yaml.safe_load(with_dict_object)
