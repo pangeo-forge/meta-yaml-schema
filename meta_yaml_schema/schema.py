@@ -1,4 +1,4 @@
-from typing import List, Union
+from typing import Dict, List, Optional, Union
 
 from pydantic import BaseModel, HttpUrl
 
@@ -34,15 +34,21 @@ class Bakery(BaseModel):
     id: str  # TODO: exists in database
 
 
+class GithubDependency(BaseModel):
+    repo: str
+    ref: str
+
+
 class MetaYaml(BaseModel):
     title: str
     description: str
-    pangeo_forge_version: str
+    pangeo_forge_recipes: Union[str, GithubDependency]
     pangeo_notebook_version: str
     recipes: Union[List[RecipeObject], RecipeDictObject]
     provenance: Provenance
     maintainers: List[Maintainer]
     bakery: Bakery
+    extras_require: Optional[Dict[str, Union[str, GithubDependency]]] = None
 
 
 schema = MetaYaml.schema()

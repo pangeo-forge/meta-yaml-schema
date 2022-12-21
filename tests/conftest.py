@@ -10,7 +10,7 @@ def with_recipes_list() -> str:
         """\
     title: 'AWS NOAA WHOI SST'
     description: 'Analysis-ready datasets derived from AWS NOAA WHOI NetCDF'
-    pangeo_forge_version: '0.9.2'
+    pangeo_forge_recipes: '0.9.2'
     pangeo_notebook_version: '2021.07.17'
     recipes:
       - id: aws-noaa-sea-surface-temp-whoi
