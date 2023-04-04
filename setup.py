@@ -1,4 +1,4 @@
-from setuptools import find_packages, setup
+from setuptools import setup
 
 with open("README.md") as f:
     readme = f.read()
@@ -11,7 +11,7 @@ setup(
     author="Charles Stern",
     author_email="charlesisaacstern@gmail.com",
     version="0.0.0",
-    packages=find_packages(),
+    packages=["meta_yaml_schema"],
     python_requires=">=3.9",
     install_requires=[
         "jsonschema",
